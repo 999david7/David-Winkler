@@ -1,12 +1,12 @@
 {
-  "name": "David — Developer & Designer",
-  "short_name": "David",
-  "description": "Portfolio of David — developer and designer building fast, clean web experiences.",
+  "name": "David Winkler — Developer & Designer",
+  "short_name": "David Winkler",
+  "description": "Portfolio of David Winkler — developer and designer building fast, clean web experiences.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f7f3ea",
-  "theme_color": "#f7f3ea",
+  "background_color": "#fcfbf8",
+  "theme_color": "#fcfbf8",
   "icons": [
     {
       "src": "favicon.svg",

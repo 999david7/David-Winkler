@@ -25,7 +25,7 @@ variables, submissions are emailed to you; either way they're appended to
 ## Layout
 
 ```
-index.html          Home — hero, about, work, journey, FAQ, contact
+index.html          Home — hero, about, work, path, contact
 projects.html       All projects, with filtering and search
 404.html            Not-found page
 css/style.css       The whole design system (tokens, components, motion)
@@ -33,8 +33,8 @@ js/main.js          All interactivity, one dependency-free file
 server.js           Express: static site + POST /api/contact
 api/contact.js      The same endpoint as a serverless function
 favicon.svg         Brand mark
-files/resume.pdf    Résumé, linked from the hero and footer
-imgs/               Logos and tech icons
+files/resume.pdf    Résumé, linked from the footer
+imgs/               Portrait, logos and icons
 ```
 
 ## Front end
@@ -53,26 +53,22 @@ section labels.
 Two colours carry the whole design — `#fcfbf8` paper and `#17140f` ink. Every
 rule, muted label and faint caption is one of them at reduced alpha, so
 emphasis comes from weight, tracking and hairline rules rather than colour.
-The only chromatic values on the page are the two state colours (form errors
-and the availability marker).
+The only chromatic values on the page are the form's error and success states.
 
-The display face is Oswald and the serif is Cormorant Garamond, both from
-Google Fonts. The reference uses licensed Balboa and Shadow Light files of its
-own; Oswald is the fallback its own stylesheet names for Balboa.
+The display face is Oswald, the serif is Cormorant Garamond and the
+handwritten accent (hero tagline, footer signature) is Shadows Into Light, all
+from Google Fonts. The reference uses licensed Balboa and Shadow Light files of
+its own; these are free stand-ins.
 
-Motion is kept subtle and functional — it responds to you rather than
-performing. Sections fade up as they arrive; buttons, cards, chips and links
-lift or underline on hover; the nav underline grows from the left; timeline
-dots scale in behind their row. Everything moves 1–3px over 120–380ms, using
-only `transform` and `opacity`. The two standing animations are the
-availability dot and the wave on the hero button.
+The home page follows the reference's structure: a centred black-and-white
+portrait over the name in huge condensed caps, a serif intro, hairline-ruled
+rows for education and path, and the work section as a list of big names. On
+wide screens hovering a name mirrors its details into a sticky preview panel;
+on narrow screens the details sit under each name.
 
-The page runs **light at the top and dark from the transition band down** —
-one continuous scroll, not a theme switch. `:root` holds the paper palette and
-the `.dark` class swaps the same two colours round; because custom properties
-inherit, everything inside a `.dark` wrapper flips with no per-component rules.
-`projects.html` and `404.html` carry `.dark` on `<body>`, since they continue
-the dark half of the home page.
+Motion is kept quiet: sections fade up as they arrive, work names darken
+and nudge on hover, and nav links underline from the left — all with
+`transform`, `opacity` and colour only.
 
 **`js/main.js`** is a series of self-guarding modules inside one IIFE. Each one
 looks for its own markup and returns early if it isn't there, so the same script
@@ -82,17 +78,14 @@ classes:
 | Attribute | What it does |
 | --- | --- |
 | `data-reveal` | Fades the element up on scroll; `style="--d:2"` staggers it. |
-| `data-faq` | Turns the container into a single-open accordion. |
-| `data-copy="…"` | Copies the value to the clipboard, with fallback for non-HTTPS. |
-| `data-zone-sync` | Marks a fixed overlay (nav, back-to-top, cursor) that should pick up `.dark` while it floats over a dark zone. |
+| `data-work` / `data-work-item` / `data-work-preview` | Mirrors the hovered project into the preview panel. |
 | `data-filter` / `data-search` / `data-project` | Powers the projects page filtering. |
 | `data-contact-form` | Validation, submission, and graceful degradation. |
 
 `prefers-reduced-motion` is honoured everywhere: transitions and animations
 collapse, the fade-ups resolve immediately, and scrolling becomes instant.
 Nothing is hidden behind an animation that reduced motion would suppress —
-the same applies without JavaScript, where reveals, timeline dots and FAQ
-answers all render open.
+the same applies without JavaScript, where every reveal renders in place.
 
 ## Contact form
 

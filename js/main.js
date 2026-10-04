@@ -29,60 +29,6 @@
         };
     }
 
-    /* ------------------------------------------------------------------ zones
-       The page runs light at the top and dark past the transition band. Fixed
-       overlays float over both, so they carry `.dark` only while they sit
-       above a dark zone. The palette lives in CSS custom properties, so
-       toggling one class re-skins the whole element. */
-
-    (function zones() {
-        const floaters = $$("[data-zone-sync]");
-        if (!floaters.length) return;
-
-        // Only blocks in the document flow define a zone; overlays such as the
-        // drawer carry `.dark` permanently and must not count as one.
-        const zones = $$(".dark").filter((el) => {
-            if (el.hasAttribute("data-zone-sync")) return false;
-            const pos = getComputedStyle(el).position;
-            return pos !== "fixed" && pos !== "absolute";
-        });
-
-        if (!zones.length) return;
-
-        const nav = $("[data-nav]");
-
-        function span(zone) {
-            let top = zone.getBoundingClientRect().top + window.scrollY;
-            let height = zone.offsetHeight;
-
-            // Flip partway through the transition band rather than at its very
-            // end, so the nav changes while the background is mid-blend.
-            const prev = zone.previousElementSibling;
-            if (prev && prev.classList.contains("transition")) {
-                const lead = prev.offsetHeight * 0.45;
-                top -= lead;
-                height += lead;
-            }
-
-            return [top, top + height];
-        }
-
-        const sync = raf(() => {
-            // Probe at the vertical middle of the nav bar.
-            const probe = window.scrollY + (nav ? nav.offsetHeight / 2 : 32);
-            const dark = zones.some((z) => {
-                const [top, bottom] = span(z);
-                return probe >= top && probe < bottom;
-            });
-
-            floaters.forEach((el) => el.classList.toggle("dark", dark));
-        });
-
-        window.addEventListener("scroll", sync, { passive: true });
-        window.addEventListener("resize", sync, { passive: true });
-        sync();
-    })();
-
     /* ------------------------------------------------------------------- nav */
 
     (function nav() {
@@ -142,92 +88,6 @@
             }),
             { passive: true }
         );
-    })();
-
-    /* ---------------------------------------------------------------- drawer */
-
-    (function drawer() {
-        const panel = $("[data-drawer]");
-        const openBtn = $("[data-drawer-open]");
-        const scrim = $("[data-scrim]");
-        if (!panel || !openBtn || !scrim) return;
-
-        let lastFocus = null;
-
-        const focusables = () =>
-            $$(
-                "a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex='-1'])",
-                panel
-            ).filter((el) => el.offsetParent !== null);
-
-        function open() {
-            lastFocus = document.activeElement;
-            scrim.hidden = false;
-            // Force a reflow so the transition runs from the hidden state.
-            void scrim.offsetWidth;
-            panel.classList.add("is-open");
-            scrim.classList.add("is-open");
-            panel.removeAttribute("inert");
-            panel.setAttribute("aria-hidden", "false");
-            openBtn.setAttribute("aria-expanded", "true");
-            openBtn.setAttribute("aria-label", "Close menu");
-            document.body.classList.add("is-locked");
-            const first = focusables()[0];
-            if (first) first.focus();
-        }
-
-        function close() {
-            panel.classList.remove("is-open");
-            scrim.classList.remove("is-open");
-            panel.setAttribute("inert", "");
-            panel.setAttribute("aria-hidden", "true");
-            openBtn.setAttribute("aria-expanded", "false");
-            openBtn.setAttribute("aria-label", "Open menu");
-            document.body.classList.remove("is-locked");
-            if (lastFocus && lastFocus.focus) lastFocus.focus();
-            window.setTimeout(() => {
-                if (!panel.classList.contains("is-open")) scrim.hidden = true;
-            }, 300);
-        }
-
-        const isOpen = () => panel.classList.contains("is-open");
-
-        openBtn.addEventListener("click", () => (isOpen() ? close() : open()));
-        scrim.addEventListener("click", close);
-        const closeBtn = $("[data-drawer-close]", panel);
-        if (closeBtn) closeBtn.addEventListener("click", close);
-        $$("a", panel).forEach((a) => a.addEventListener("click", close));
-
-        document.addEventListener("keydown", (e) => {
-            if (!isOpen()) return;
-
-            if (e.key === "Escape") {
-                e.preventDefault();
-                close();
-                return;
-            }
-
-            if (e.key !== "Tab") return;
-
-            // Keep focus inside the drawer while it's open.
-            const items = focusables();
-            if (!items.length) return;
-            const first = items[0];
-            const last = items[items.length - 1];
-
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        });
-
-        // A resize past the breakpoint should not leave the page locked.
-        window.addEventListener("resize", () => {
-            if (isOpen() && window.innerWidth > 820) close();
-        });
     })();
 
     /* ---------------------------------------------------------- smooth anchors */
@@ -314,80 +174,6 @@
         window.addEventListener("scroll", sweep, { passive: true });
         window.addEventListener("resize", sweep, { passive: true });
         sweep();
-    })();
-
-    /* -------------------------------------------------------------------- faq */
-
-    (function faq() {
-        const list = $("[data-faq]");
-        if (!list) return;
-
-        list.addEventListener("click", (e) => {
-            const btn = e.target.closest(".faq__q");
-            if (!btn) return;
-
-            const item = btn.closest(".faq__item");
-            const open = btn.getAttribute("aria-expanded") === "true";
-
-            // Accordion: only one panel stays open.
-            $$(".faq__item.is-open", list).forEach((other) => {
-                if (other === item) return;
-                other.classList.remove("is-open");
-                const q = $(".faq__q", other);
-                if (q) q.setAttribute("aria-expanded", "false");
-            });
-
-            item.classList.toggle("is-open", !open);
-            btn.setAttribute("aria-expanded", String(!open));
-        });
-    })();
-
-    /* ----------------------------------------------------------- copy to clip */
-
-    (function copy() {
-        $$("[data-copy]").forEach((btn) => {
-            const original = btn.innerHTML;
-            let timer = null;
-
-            btn.addEventListener("click", async () => {
-                const text = btn.dataset.copy;
-                let ok = false;
-
-                try {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(text);
-                        ok = true;
-                    } else {
-                        // http:// and file:// fall back to the legacy path.
-                        const ta = document.createElement("textarea");
-                        ta.value = text;
-                        ta.setAttribute("readonly", "");
-                        ta.style.position = "fixed";
-                        ta.style.opacity = "0";
-                        document.body.appendChild(ta);
-                        ta.select();
-                        ok = document.execCommand("copy");
-                        ta.remove();
-                    }
-                } catch (err) {
-                    ok = false;
-                }
-
-                btn.innerHTML = ok
-                    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>'
-                    : original;
-                btn.setAttribute(
-                    "aria-label",
-                    ok ? "Email copied" : "Copy failed — select the address manually"
-                );
-
-                window.clearTimeout(timer);
-                timer = window.setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.setAttribute("aria-label", "Copy email address");
-                }, 2000);
-            });
-        });
     })();
 
     /* --------------------------------------------------------- contact form */
@@ -563,24 +349,6 @@
         });
     })();
 
-    /* ------------------------------------------------------------- back to top */
-
-    (function toTop() {
-        const btn = $("[data-to-top]");
-        if (!btn) return;
-
-        const onScroll = raf(() => {
-            btn.classList.toggle("is-shown", window.scrollY > window.innerHeight * 0.8);
-        });
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
-
-        btn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: calm() ? "auto" : "smooth" });
-        });
-    })();
-
     /* ------------------------------------------------------------ projects page */
 
     (function projectFilters() {
@@ -688,59 +456,44 @@
         }
     })();
 
-    /* -------------------------------------------------------------- local time
-       Shows the time where I am, so anyone reading from another timezone knows
-       whether they've caught me awake. Derived entirely from the visitor's
-       clock plus a fixed zone — no request, no API. */
+    /* -------------------------------------------------------------- work list
+       Hovering or focusing a project lights its name and mirrors its detail
+       into the sticky preview panel beside the list. The panel is hidden on
+       narrow screens, where each row shows its own detail instead. */
 
-    (function localTime() {
-        const el = $("[data-local-time]");
-        if (!el) return;
+    (function workPreview() {
+        const root = $("[data-work]");
+        if (!root) return;
 
-        const row = el.closest("[data-time-row]");
-        const phase = el.closest(".idcard__time");
-        const tz = el.dataset.tz || "Europe/Vienna";
+        const preview = $("[data-work-preview]", root);
+        const items = $$("[data-work-item]", root);
+        if (!preview || !items.length) return;
 
-        let fmt;
-        try {
-            // formatToParts rather than format(): it gives the hour back on its
-            // own, without having to parse a locale-dependent string.
-            fmt = new Intl.DateTimeFormat("en-GB", {
-                timeZone: tz,
-                hour: "2-digit",
-                minute: "2-digit",
-                hourCycle: "h23",
-            });
-            fmt.formatToParts(new Date());
-        } catch (err) {
-            // Unknown timezone or no Intl — leave the row hidden rather than
-            // showing a placeholder that never fills in.
-            return;
+        let active = null;
+
+        function show(item) {
+            if (item === active) return;
+            if (active) active.classList.remove("is-active");
+            active = item;
+            item.classList.add("is-active");
+
+            const name = document.createElement("p");
+            name.className = "work__preview-name";
+            name.textContent = $(".work__name", item).textContent;
+
+            const body = document.createElement("div");
+            body.className = "work__preview-body";
+            body.innerHTML = $(".work__detail", item).innerHTML;
+
+            preview.replaceChildren(name, body);
         }
 
-        function tick() {
-            const parts = fmt.formatToParts(new Date());
-            const get = (type) => {
-                const part = parts.find((p) => p.type === type);
-                return part ? part.value : "";
-            };
+        items.forEach((item) => {
+            item.addEventListener("mouseenter", () => show(item));
+            item.addEventListener("focusin", () => show(item));
+        });
 
-            const hh = get("hour");
-            const mm = get("minute");
-            if (!hh || !mm) return;
-
-            el.textContent = `${hh}:${mm}`;
-            el.setAttribute("datetime", `${hh}:${mm}`);
-
-            const hour = Number(hh);
-            if (phase) {
-                phase.dataset.phase = hour >= 7 && hour < 20 ? "day" : "night";
-            }
-        }
-
-        tick();
-        if (row) row.hidden = false;
-        window.setInterval(tick, 15000);
+        show(items[0]);
     })();
 
     /* ------------------------------------------------------------------- year */
