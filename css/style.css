@@ -66,6 +66,10 @@ ul { list-style: none; }
     text-transform: uppercase; color: var(--faint); margin-bottom: clamp(1.75rem, 4vh, 2.75rem);
 }
 .slabel.sub { margin-top: clamp(2.5rem, 6vh, 4rem); }
+/* A label that links (Work → the Work page): shrink to the text so the
+   hover underline only spans the word. */
+a.slabel { display: table; transition: color .3s var(--ease); }
+a.slabel:hover { color: var(--ink); }
 
 /* ------------------------------------------------------------------ nav */
 
@@ -94,7 +98,7 @@ ul { list-style: none; }
 .hero-caption { font-family: var(--ff-script); font-size: clamp(1.35rem, 2.6vw, 2.3rem); line-height: 1.35; color: var(--ink); }
 .hero-portrait {
     width: clamp(104px, 12vw, 150px); height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 28%;
-    filter: grayscale(1) contrast(1.02); margin-top: clamp(.5rem, 2vh, 1.5rem);
+    margin-top: clamp(.5rem, 2vh, 1.5rem);
 }
 
 /* Entrance: each hero child rises 14px and fades in, staggered 0.14s. */
