@@ -122,6 +122,9 @@ failure.
 Import the repository and deploy — no framework preset, no build command, no
 output directory. `vercel.json` and `.vercelignore` configure the rest:
 
+- `"framework": null` stops Vercel from detecting Express (it's a dependency)
+  and trying to run `server.js` as the whole site — which fails with
+  "No entrypoint found", since `server.js` is excluded from the upload.
 - `api/contact.js` is picked up automatically as a function at `/api/contact`.
 - `cleanUrls` serves `/projects`, matching the Express server's behaviour.
 - The four security headers `server.js` sends are set as static headers, since
