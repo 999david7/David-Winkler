@@ -3,191 +3,65 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Projects — David Winkler</title>
-<meta name="description" content="Everything David Winkler has built and shipped — web apps, tools, and design work. Filter by category or search." />
+<title>Work — David Winkler</title>
+<meta name="description" content="Everything David Winkler has built and shipped." />
 <meta name="author" content="David Winkler" />
-<meta name="theme-color" content="#fcfbf8" />
-
+<meta name="theme-color" content="#FCFBF8" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Projects — David Winkler" />
-<meta property="og:description" content="Everything I've built and shipped." />
+<meta property="og:title" content="Work — David Winkler" />
+<meta property="og:description" content="Everything David Winkler has built and shipped." />
 <meta property="og:image" content="imgs/david-portrait.webp" />
-<meta name="twitter:card" content="summary_large_image" />
-
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="imgs/personal_buisness_logo-removebg-preview.png" />
 <link rel="manifest" href="site.webmanifest" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600&family=Shadows+Into+Light&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=League+Gothic&family=Shadows+Into+Light&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
-
-<!-- Flag JS before first paint so scroll reveals never hide content from
-     visitors without it. -->
-<script>document.documentElement.classList.add("js");</script>
-
 </head>
 
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="nav" data-nav>
-    <nav class="nav__links" aria-label="Primary">
-        <a class="nav__link" href="index.html">Home</a>
-        <a class="nav__link is-active" href="projects.html" aria-current="page">Work</a>
-        <a class="nav__link" href="index.html#about">About</a>
-        <a class="nav__link" href="index.html#contact">Contact</a>
-    </nav>
-</header>
+<nav class="nav" aria-label="Primary">
+    <a class="u" href="index.html#work">Work</a>
+    <a class="u" href="index.html#about">About</a>
+    <a class="u" href="mailto:999david01@gmx.at">Contact</a>
+</nav>
 
-<main id="main">
-
-<section class="page-head">
-    <div class="container">
-        <h2 class="label" data-reveal>Work</h2>
-        <h1 class="page-title" data-reveal style="--d:1">All projects</h1>
-        <p class="page-sub" data-reveal style="--d:2">Everything I've built and shipped</p>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="toolbar" data-reveal>
-            <div class="filters" role="group" aria-label="Filter projects by category">
-                <button class="filter" type="button" data-filter="all" aria-pressed="true">All <span class="filter__count"></span></button>
-                <button class="filter" type="button" data-filter="web" aria-pressed="false">Web <span class="filter__count"></span></button>
-                <button class="filter" type="button" data-filter="app" aria-pressed="false">Apps <span class="filter__count"></span></button>
-                <button class="filter" type="button" data-filter="tool" aria-pressed="false">Tools <span class="filter__count"></span></button>
-                <button class="filter" type="button" data-filter="design" aria-pressed="false">Design <span class="filter__count"></span></button>
+<main id="main" class="page wrap">
+    <a class="page-back u" href="index.html">← Back</a>
+    <h1 class="page-title">Work</h1>
+    <div class="list page-list">
+        <a class="row" href="projects/cortex.html">
+            <div>
+                <div class="row-name">Cortex</div>
+                <div class="row-note">A code editor that runs your own local models.</div>
             </div>
-
-            <label class="search">
-                <input type="search" data-search placeholder="Search…  ( / )"
-                       aria-label="Search projects" autocomplete="off" />
-            </label>
-        </div>
-
-        <p class="result-count" data-result-count aria-live="polite"></p>
-
-        <ol class="work__list work__list--full" data-projects>
-                <li class="work__item" data-project data-category="app"
-                    data-search="cortex ai code editor c++ cpp imgui ollama local llm ide desktop windows agent syntax highlighting">
-                    <a class="work__row" href="https://github.com/999david7/Cortex" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Cortex</span>
-                        <span class="work__year">2026</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">App</span>
-                        <p>A code editor written from scratch in C++ on Dear ImGui, wired to your own local models through Ollama. Syntax highlighting for ~90 languages, an assistant that edits files behind an approval step, and a live preview server. No cloud, no account, no telemetry.</p>
-                        <p class="work__stack">C++ · Dear ImGui · Ollama</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="tool"
-                    data-search="formula arch linux f1 theme ricing shell rice desktop">
-                    <a class="work__row" href="https://github.com/999david7/Formula-Arch" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Formula Arch</span>
-                        <span class="work__year">2026</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Tool</span>
-                        <p>An Arch Linux ricing theme styled after Formula 1 liveries. Fast, loud, precise.</p>
-                        <p class="work__stack">Arch Linux · Shell · Theming</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="web"
-                    data-search="bean4u coffee recipes web html css javascript brand">
-                    <a class="work__row" href="https://bean4u.coffee" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">bean4U</span>
-                        <span class="work__year">2025</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Web</span>
-                        <p>My coffee recipe platform — recipes, brewing guides, and a brand built from scratch.</p>
-                        <p class="work__stack">HTML · CSS · JavaScript</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="web"
-                    data-search="portfolio website node express motion design">
-                    <a class="work__row" href="https://github.com/999david7/portfolio.main" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Portfolio</span>
-                        <span class="work__year">2025</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Web</span>
-                        <p>This site. Zero front-end dependencies and a Node contact API, designed and shipped with an agentic workflow.</p>
-                        <p class="work__stack">Node · Express · Design</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="tool"
-                    data-search="contact api node express nodemailer backend form rate limit">
-                    <a class="work__row" href="https://github.com/999david7/portfolio.main/blob/main/server.js" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Contact API</span>
-                        <span class="work__year">2025</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Tool</span>
-                        <p>A small hardened Express endpoint: validation, rate limiting, honeypot, and optional SMTP delivery.</p>
-                        <p class="work__stack">Node · Express · SMTP</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="web"
-                    data-search="java learning school htl anichstrasse coursework oop python algorithms experiments">
-                    <a class="work__row" href="https://github.com/999david7" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Coursework</span>
-                        <span class="work__year">2025</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Web</span>
-                        <p>Java, Python, and front-end exercises from HTL Anichstraße and my own rabbit holes.</p>
-                        <p class="work__stack">Java · Python · Algorithms</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-project data-category="design"
-                    data-search="bean4u brand identity logo design visual system">
-                    <a class="work__row" href="https://bean4u.coffee" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">bean4U identity</span>
-                        <span class="work__year">2024</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Design</span>
-                        <p>Logo, type scale, and colour system for the bean4U brand — the groundwork the site sits on.</p>
-                        <p class="work__stack">Branding · Logo · Type</p>
-                    </div>
-                </li>
-            </ol>
-
-        <div class="empty" data-empty>
-            <p>Nothing matches that. Try a different search, or clear the filters.</p>
-            <button class="btn" type="button" data-reset-filters>Reset filters</button>
-        </div>
-
-        <p class="more" data-reveal>
-            Want something like this? <a class="link" href="index.html#contact">Get in touch →</a>
-        </p>
+            <span class="row-year">2026</span>
+        </a>
+        <a class="row" href="projects/bean4u.html">
+            <div>
+                <div class="row-name">bean4U</div>
+                <div class="row-note">Coffee recipes, brewing guides, and a brand built from scratch.</div>
+            </div>
+            <span class="row-year">2024 — Present</span>
+        </a>
+        <a class="row" href="projects/formula-arch.html">
+            <div>
+                <div class="row-name">Formula Arch</div>
+                <div class="row-note">Arch Linux, dressed in Formula 1 liveries.</div>
+            </div>
+            <span class="row-year">2026</span>
+        </a>
+        <a class="row" href="projects/portfolio.html">
+            <div>
+                <div class="row-name">Portfolio</div>
+                <div class="row-note">This site — static pages and a small hardened API.</div>
+            </div>
+            <span class="row-year">2025</span>
+        </a>
     </div>
-</section>
-
 </main>
-
-<footer class="footer">
-    <div class="container footer__inner">
-        <p class="footer__sign">David Winkler</p>
-        <nav class="footer__links" aria-label="Footer">
-            <a href="mailto:999david01@gmx.at">Email</a>
-            <a href="https://github.com/999david7" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.instagram.com/999david01" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="files/resume.pdf" download>CV</a>
-        </nav>
-        <p class="footer__copy">© <span data-year>2026</span> · David Winkler</p>
-    </div>
-</footer>
 
 <script src="js/main.js" defer></script>
 </body>

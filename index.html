@@ -4,282 +4,142 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>David Winkler — Developer &amp; Designer</title>
-<meta name="description" content="David Winkler — developer and designer from Innsbruck building fast, clean web experiences. Founder of bean4U. Available for freelance projects and collaborations." />
+<meta name="description" content="David Winkler — web developer and designer from Innsbruck, Austria. Founder of bean4U." />
 <meta name="author" content="David Winkler" />
-<meta name="theme-color" content="#fcfbf8" />
-
+<meta name="theme-color" content="#FCFBF8" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="David Winkler — Developer &amp; Designer" />
-<meta property="og:description" content="Building fast, clean web experiences. Founder of bean4U." />
+<meta property="og:description" content="David Winkler — web developer and designer from Innsbruck, Austria. Founder of bean4U." />
 <meta property="og:image" content="imgs/david-portrait.webp" />
-<meta name="twitter:card" content="summary_large_image" />
-
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="apple-touch-icon" href="imgs/personal_buisness_logo-removebg-preview.png" />
 <link rel="manifest" href="site.webmanifest" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600&family=Shadows+Into+Light&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=League+Gothic&family=Shadows+Into+Light&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
-
-<!-- Flag JS before first paint so scroll reveals never hide content from
-     visitors without it. -->
-<script>document.documentElement.classList.add("js");</script>
-
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "David Winkler",
-  "jobTitle": "Web Developer & Designer",
-  "email": "mailto:999david01@gmx.at",
-  "url": "https://bean4u.coffee",
-  "sameAs": [
-    "https://github.com/999david7",
-    "https://www.instagram.com/999david01"
-  ]
-}
+{"@context":"https://schema.org","@type":"Person","name":"David Winkler","jobTitle":"Web Developer & Designer","email":"mailto:999david01@gmx.at","url":"https://bean4u.coffee","sameAs":["https://github.com/999david7","https://www.instagram.com/999david01"]}
 </script>
 </head>
 
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ====================== NAV ====================== -->
-<header class="nav" data-nav>
-    <nav class="nav__links" aria-label="Primary">
-        <a class="nav__link" href="#work">Work</a>
-        <a class="nav__link" href="#about">About</a>
-        <a class="nav__link" href="#contact">Contact</a>
-    </nav>
-</header>
+<nav class="nav" aria-label="Primary">
+    <a class="u" href="#work">Work</a>
+    <a class="u" href="#about">About</a>
+    <a class="u" href="mailto:999david01@gmx.at">Contact</a>
+</nav>
 
 <main id="main">
 
-<!-- ====================== HERO ====================== -->
-<section class="hero" id="top">
-    <img class="hero__photo" src="imgs/david-portrait.webp" alt="Portrait of David Winkler"
-         width="640" height="936" fetchpriority="high" decoding="async" draggable="false"
-         data-reveal />
-    <h1 class="hero__name" data-reveal style="--d:1">David Winkler</h1>
-    <p class="hero__tagline" data-reveal style="--d:2">
-        Web developer &amp; designer<br />
-        Innsbruck, Austria
-    </p>
+<section class="hero">
+    <img class="hero-portrait" src="imgs/david-portrait.webp" alt="David Winkler"
+         width="640" height="936" fetchpriority="high" decoding="async" />
+    <h1 class="hero-name">David Winkler</h1>
+    <p class="hero-caption">Web developer &amp; designer<br />Innsbruck, Austria</p>
 </section>
 
-<!-- ====================== ABOUT ====================== -->
-<section class="section" id="about">
-    <div class="container">
-        <div class="intro" data-reveal>
-            <p class="intro__lead">I build programs that are fast, clean, and just work.</p>
-            <p>
-                Most of what I do sits where engineering meets design — shipping interfaces
-                that load instantly, read clearly, and feel good to use. Your mentality is
-                your limit.
-            </p>
-            <p>
-                Right now I'm studying at HTL Anichstra&szlig;e, running
-                <a class="link" href="https://bean4u.coffee" target="_blank" rel="noopener noreferrer">bean4U</a>,
-                and taking on freelance work in web development and UI. If it isn't fast,
-                it isn't good.
-            </p>
-        </div>
-
-        <div class="block">
-            <h2 class="label" data-reveal>Education</h2>
-            <ul class="rows">
-                <li class="row" data-reveal>
-                    <div>
-                        <h3 class="row__title">HTL Anichstra&szlig;e</h3>
-                        <p class="row__sub">Technical college in Innsbruck — engineering fundamentals</p>
-                    </div>
-                    <span class="row__date">Since 2025</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="block">
-            <h2 class="label" data-reveal>Tools</h2>
-            <p class="tools" data-reveal>
-                HTML · CSS · JavaScript · TypeScript · Java · Python · Node.js · Git ·
-                Linux · Figma · Claude Code · ChatGPT · Gemini
-            </p>
-        </div>
+<section id="about" class="wrap">
+    <div class="block">
+        <p class="lead">From Innsbruck. I build programs that are fast, clean, and just work.</p>
+        <p class="dim">Most of what I do sits where engineering meets design — interfaces that load instantly, read clearly, and feel good to use. Your mentality is your limit.</p>
+        <p class="dim">Currently studying at HTL Anichstraße, running bean4U, and taking on freelance work in web development and UI.</p>
     </div>
 </section>
 
-<!-- ====================== WORK ====================== -->
-<section class="section" id="work">
-    <div class="container">
-        <h2 class="label" data-reveal>Work</h2>
-
-        <div class="work" data-work>
-            <ol class="work__list">
-                <li class="work__item" data-work-item data-reveal>
-                    <a class="work__row" href="https://github.com/999david7/Cortex" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Cortex</span>
-                        <span class="work__year">2026</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">App</span>
-                        <p>A code editor written from scratch in C++ that runs your own local models
-                            through Ollama. No cloud, no account, no telemetry.</p>
-                        <p class="work__stack">C++ · Dear ImGui · Ollama</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-work-item data-reveal>
-                    <a class="work__row" href="https://bean4u.coffee" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">bean4U</span>
-                        <span class="work__year">2024 — Now</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Web</span>
-                        <p>My coffee recipe platform. Clean UI, fast pages, and a brand built from scratch.</p>
-                        <p class="work__stack">HTML · CSS · JavaScript</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-work-item data-reveal>
-                    <a class="work__row" href="https://github.com/999david7/Formula-Arch" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Formula Arch</span>
-                        <span class="work__year">2026</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Tool</span>
-                        <p>An Arch Linux ricing theme styled after Formula 1 liveries. Fast, loud, precise.</p>
-                        <p class="work__stack">Arch Linux · Shell · Theming</p>
-                    </div>
-                </li>
-
-                <li class="work__item" data-work-item data-reveal>
-                    <a class="work__row" href="https://github.com/999david7/portfolio.main" target="_blank" rel="noopener noreferrer">
-                        <span class="work__name">Portfolio</span>
-                        <span class="work__year">2025</span>
-                    </a>
-                    <div class="work__detail">
-                        <span class="work__tag">Web</span>
-                        <p>This site. Zero front-end dependencies and a Node contact API on the back,
-                            designed and shipped with an agentic workflow.</p>
-                        <p class="work__stack">Node · Express · Design</p>
-                    </div>
-                </li>
-            </ol>
-
-            <aside class="work__preview" data-work-preview aria-hidden="true"></aside>
-        </div>
-
-        <p class="more" data-reveal>
-            <a class="link" href="projects.html">All projects →</a>
-        </p>
-    </div>
-</section>
-
-<!-- ====================== PATH ====================== -->
-<section class="section" id="path">
-    <div class="container">
-        <h2 class="label" data-reveal>Path</h2>
-
-        <ol class="rows">
-            <li class="row" data-reveal>
-                <div>
-                    <h3 class="row__title">Freelance developer</h3>
-                    <p class="row__sub">Modern web experiences and UI for clients</p>
-                </div>
-                <span class="row__date">Now</span>
-            </li>
-            <li class="row" data-reveal>
-                <div>
-                    <h3 class="row__title">Student</h3>
-                    <p class="row__sub">HTL Anichstra&szlig;e — going deep on engineering fundamentals</p>
-                </div>
-                <span class="row__date">2025 — now</span>
-            </li>
-            <li class="row" data-reveal>
-                <div>
-                    <h3 class="row__title">Picked up Java</h3>
-                    <p class="row__sub">Past scripting into typed, structured, object-oriented work</p>
-                </div>
-                <span class="row__date">2025</span>
-            </li>
-            <li class="row" data-reveal>
-                <div>
-                    <h3 class="row__title">Founder</h3>
-                    <p class="row__sub">bean4U — my first real product, brand and all</p>
-                </div>
-                <span class="row__date">2024 — now</span>
-            </li>
-        </ol>
-    </div>
-</section>
-
-<!-- ====================== CONTACT ====================== -->
-<section class="section" id="contact">
-    <div class="container">
-        <h2 class="label" data-reveal>Contact</h2>
-
-        <div class="contact">
-            <div class="intro" data-reveal>
-                <p class="intro__lead">Let's build something.</p>
-                <p>Tell me what you have in mind. I usually reply within a day — or write
-                    directly to <a class="link" href="mailto:999david01@gmx.at">999david01@gmx.at</a>.</p>
+<section id="education" class="wrap section-pad">
+    <span class="slabel">Education</span>
+    <div class="list">
+        <div class="row">
+            <div>
+                <div class="row-name serif">HTL Anichstraße</div>
+                <div class="row-note">Technical college in Innsbruck — engineering fundamentals</div>
             </div>
-
-            <form class="form" data-contact-form novalidate data-reveal style="--d:1">
-                <label class="hp" aria-hidden="true">
-                    Website
-                    <input type="text" name="website" tabindex="-1" autocomplete="off" />
-                </label>
-
-                <div class="form__row">
-                    <label class="field">
-                        <span>Name</span>
-                        <input type="text" name="name" required autocomplete="name"
-                               aria-describedby="err-name" />
-                        <em class="field__error" id="err-name" data-error-for="name"></em>
-                    </label>
-
-                    <label class="field">
-                        <span>Email</span>
-                        <input type="email" name="email" required autocomplete="email"
-                               aria-describedby="err-email" />
-                        <em class="field__error" id="err-email" data-error-for="email"></em>
-                    </label>
-                </div>
-
-                <label class="field">
-                    <span>Message</span>
-                    <textarea name="message" required rows="4" aria-describedby="err-message"></textarea>
-                    <em class="field__error" id="err-message" data-error-for="message"></em>
-                </label>
-
-                <button class="btn" type="submit" data-submit>
-                    <span class="btn__label">Send message →</span>
-                </button>
-
-                <p class="form__note" data-form-note role="status" aria-live="polite"></p>
-            </form>
+            <span class="row-year">Since 2025</span>
         </div>
     </div>
+</section>
+
+<section id="work" class="wrap section-pad">
+    <span class="slabel">Work</span>
+    <div class="work-grid">
+        <ul class="work-names">
+                <li>
+                    <a class="work-name" href="projects/cortex.html">
+                        <span class="work-name-txt">Cortex</span>
+                        <span class="work-name-year">2026</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="work-name" href="projects/bean4u.html">
+                        <span class="work-name-txt">bean4U</span>
+                        <span class="work-name-year">2024 — Present</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="work-name" href="projects/formula-arch.html">
+                        <span class="work-name-txt">Formula Arch</span>
+                        <span class="work-name-year">2026</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="work-name" href="projects/portfolio.html">
+                        <span class="work-name-txt">Portfolio</span>
+                        <span class="work-name-year">2025</span>
+                    </a>
+                </li>
+        </ul>
+        <div class="work-preview" aria-hidden="true">
+                <div class="work-shot on"><span class="work-shot-glyph">Cortex</span></div>
+                <div class="work-shot"><img src="imgs/work/bean4u.webp" alt="" loading="lazy" decoding="async" /></div>
+                <div class="work-shot"><span class="work-shot-glyph">Formula Arch</span></div>
+                <div class="work-shot"><img src="imgs/personal_buisness_logo-removebg-preview.png" alt="" loading="lazy" decoding="async" /></div>
+        </div>
+    </div>
+</section>
+
+<section id="journey" class="wrap section-pad">
+    <span class="slabel">Path</span>
+    <div class="list path">
+        <div class="row">
+            <div>
+                <div class="row-name">Student</div>
+                <div class="row-note">HTL Anichstraße — technical college in Innsbruck</div>
+            </div>
+            <span class="row-year">2025 — now</span>
+        </div>
+        <div class="row">
+            <div>
+                <div class="row-name">Founder</div>
+                <div class="row-note">bean4U — coffee recipe platform, brand and all</div>
+            </div>
+            <span class="row-year">2024 — now</span>
+        </div>
+        <div class="row">
+            <div>
+                <div class="row-name">Freelance developer</div>
+                <div class="row-note">Web development and UI for clients</div>
+            </div>
+            <span class="row-year">Now</span>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="wrap">
+    <footer class="footer">
+        <span class="footer-sign">David Winkler</span>
+        <div class="footer-links">
+            <a class="u" href="mailto:999david01@gmx.at">Email</a>
+            <a class="u" href="https://github.com/999david7" target="_blank" rel="noopener">GitHub</a>
+            <a class="u" href="https://www.instagram.com/999david01" target="_blank" rel="noopener">Instagram</a>
+            <a class="u" href="files/resume.pdf" download>CV</a>
+        </div>
+        <span class="footer-copy">© 2026 · David Winkler</span>
+    </footer>
 </section>
 
 </main>
-
-<!-- ====================== FOOTER ====================== -->
-<footer class="footer">
-    <div class="container footer__inner">
-        <p class="footer__sign">David Winkler</p>
-        <nav class="footer__links" aria-label="Footer">
-            <a href="mailto:999david01@gmx.at">Email</a>
-            <a href="https://github.com/999david7" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.instagram.com/999david01" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="files/resume.pdf" download>CV</a>
-        </nav>
-        <p class="footer__copy">© <span data-year>2026</span> · David Winkler</p>
-    </div>
-</footer>
 
 <script src="js/main.js" defer></script>
 </body>

@@ -5,29 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Page not found — David Winkler</title>
 <meta name="description" content="That page doesn't exist." />
-<meta name="robots" content="noindex" />
-<meta name="theme-color" content="#fcfbf8" />
-
+<meta name="author" content="David Winkler" />
+<meta name="theme-color" content="#FCFBF8" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Page not found — David Winkler" />
+<meta property="og:description" content="That page doesn't exist." />
+<meta property="og:image" content="/imgs/david-portrait.webp" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600&family=Shadows+Into+Light&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=League+Gothic&family=Shadows+Into+Light&display=swap" />
 <link rel="stylesheet" href="/css/style.css" />
+<meta name="robots" content="noindex" />
 </head>
 
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<main class="notfound">
-    <h2 class="label">Error</h2>
+<nav class="nav" aria-label="Primary">
+    <a class="u" href="/#work">Work</a>
+    <a class="u" href="/#about">About</a>
+    <a class="u" href="mailto:999david01@gmx.at">Contact</a>
+</nav>
+
+<main id="main" class="page wrap">
+    <a class="page-back u" href="/">← Back</a>
     <h1 class="page-title">404</h1>
-    <p class="page-sub">This page took a wrong turn</p>
-
-    <nav class="notfound__links" aria-label="Recovery">
-        <a class="link" href="/">Back home</a>
-        <a class="link" href="/projects.html">See the work</a>
-    </nav>
+    <p class="detail-tagline">This page doesn't exist — it may have moved.</p>
 </main>
 
+<script src="/js/main.js" defer></script>
 </body>
 </html>

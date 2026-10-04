@@ -25,71 +25,45 @@ variables, submissions are emailed to you; either way they're appended to
 ## Layout
 
 ```
-index.html          Home — hero, about, work, path, contact
-projects.html       All projects, with filtering and search
+index.html          Home — hero, about, education, work, path, footer
+projects.html       Work index — every project as a row
+projects/*.html     One detail page per project
 404.html            Not-found page
-css/style.css       The whole design system (tokens, components, motion)
-js/main.js          All interactivity, one dependency-free file
+css/style.css       All styles
+js/main.js          Smooth section links + the work preview panel
 server.js           Express: static site + POST /api/contact
 api/contact.js      The same endpoint as a serverless function
 favicon.svg         Brand mark
 files/resume.pdf    Résumé, linked from the footer
-imgs/               Portrait, logos and icons
+imgs/               Portrait, project images, logos
 ```
 
 ## Front end
 
-Everything lives in two files.
+The design replicates [999gabriel.me](https://999gabriel.me) value for value:
+the same tokens (`#FCFBF8` paper, `#17140F` ink, muted/faint/line at 56/34/12%
+alpha), type scale, spacing, layout, the `mix-blend-mode: difference` nav, and
+the hero entrance (each element rises 14px and fades in over 1.1s, staggered
+0.14s). Like the reference there are no scroll animations; work names darken
+and slide on hover, and links underline from the left.
 
-**`css/style.css`** is token-driven. Colours, spacing, radii, easing and type
-are all custom properties declared once in `:root`. To restyle the site, edit
-the tokens.
+The reference's licensed fonts are replaced with free Google Fonts: League
+Gothic for Balboa (display), Shadows Into Light for Shadow Light (script), and
+the same Cormorant Garamond serif. League Gothic is narrower than Balboa Fill,
+so the hero name gets extra letter spacing to keep the same width.
 
-The theme follows [999gabriel.me](https://999gabriel.me): warm paper and ink
-rather than cool greys, no accent hue, square corners throughout, a condensed
-uppercase display face over an old-style serif, and wide-tracked uppercase
-section labels.
+On wide screens hovering a work name shows that project's image (or its name
+as a faint glyph) in the sticky preview panel; under 820px the panel hides.
 
-Two colours carry the whole design — `#fcfbf8` paper and `#17140f` ink. Every
-rule, muted label and faint caption is one of them at reduced alpha, so
-emphasis comes from weight, tracking and hairline rules rather than colour.
-The only chromatic values on the page are the form's error and success states.
+Project pages are plain static HTML. To add a project, add a row to
+`projects.html`, a name and preview shot to the work section of `index.html`,
+and a page under `projects/` (copy an existing one and update the prev/next
+links).
 
-The display face is Oswald, the serif is Cormorant Garamond and the
-handwritten accent (hero tagline, footer signature) is Shadows Into Light, all
-from Google Fonts. The reference uses licensed Balboa and Shadow Light files of
-its own; these are free stand-ins.
+## Contact API
 
-The home page follows the reference's structure: a centred black-and-white
-portrait over the name in huge condensed caps, a serif intro, hairline-ruled
-rows for education and path, and the work section as a list of big names. On
-wide screens hovering a name mirrors its details into a sticky preview panel;
-on narrow screens the details sit under each name.
-
-Motion is kept quiet: sections fade up as they arrive, work names darken
-and nudge on hover, and nav links underline from the left — all with
-`transform`, `opacity` and colour only.
-
-**`js/main.js`** is a series of self-guarding modules inside one IIFE. Each one
-looks for its own markup and returns early if it isn't there, so the same script
-serves every page. Behaviour is attached with `data-` attributes rather than
-classes:
-
-| Attribute | What it does |
-| --- | --- |
-| `data-reveal` | Fades the element up on scroll; `style="--d:2"` staggers it. |
-| `data-work` / `data-work-item` / `data-work-preview` | Mirrors the hovered project into the preview panel. |
-| `data-filter` / `data-search` / `data-project` | Powers the projects page filtering. |
-| `data-contact-form` | Validation, submission, and graceful degradation. |
-
-`prefers-reduced-motion` is honoured everywhere: transitions and animations
-collapse, the fade-ups resolve immediately, and scrolling becomes instant.
-Nothing is hidden behind an animation that reduced motion would suppress —
-the same applies without JavaScript, where every reveal renders in place.
-
-## Contact form
-
-The form posts JSON to `api/contact` (a relative path, so it works from any
+The site itself links to email (like the reference, there is no form on the
+page), but the API is kept for reuse. A form would post JSON to `api/contact` (a relative path, so it works from any
 subdirectory). `server.js` validates it, rate limits to 5 submissions per IP per
 10 minutes, checks a honeypot field, stores the message, and optionally emails it.
 
