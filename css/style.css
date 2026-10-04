@@ -139,7 +139,7 @@ a.slabel:hover { color: var(--ink); }
     padding: clamp(1.5rem, 4vw, 3rem); opacity: 0; transition: opacity .45s var(--ease);
 }
 .work-shot.on { opacity: 1; }
-.work-shot img { max-width: 78%; max-height: 78%; object-fit: contain; filter: grayscale(1); }
+.work-shot img { max-width: 78%; max-height: 78%; object-fit: contain; }
 .work-shot-glyph {
     font-family: var(--ff-display); text-transform: uppercase; font-weight: 500;
     font-size: clamp(2rem, 6vw, 4rem); letter-spacing: .04em; color: var(--line);
@@ -191,8 +191,7 @@ a.row:hover { opacity: .55; }
 .detail-body p { margin: 0 0 1.4rem; }
 .detail-body p:last-child { margin-bottom: 0; color: var(--muted); }
 .detail-visual { margin: clamp(2.5rem, 6vh, 5rem) 0; border: 1px solid var(--line); overflow: hidden; background: #fff; }
-.detail-visual img { width: 100%; display: block; filter: grayscale(1); transition: filter .5s var(--ease); }
-.detail-visual:hover img { filter: none; }
+.detail-visual img { width: 100%; display: block; }
 .detail-visual img.contain { width: auto; max-width: 100%; max-height: 60vh; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem); }
 .detail-visual-glyph {
     aspect-ratio: 16 / 6; display: flex; align-items: center; justify-content: center;
