@@ -48,6 +48,13 @@ handwritten accents, all from Google Fonts. The nav uses
 1.1s, staggered 0.14s. Work names darken and slide on hover, and links
 underline from the left.
 
+Further down the page, anything marked `data-reveal` fades up as it scrolls
+into view, with siblings staggered; row hairlines draw in from the left and
+the footer signature writes itself in. `js/main.js` arms this by adding
+`.reveals` to `<html>`, so nothing is hidden if the script never runs, and
+it is skipped entirely under `prefers-reduced-motion`. The Work and project
+pages ease in on load like the hero.
+
 On wide screens hovering a work name shows that project's image (or its name
 as a faint glyph) in the sticky preview panel; under 820px the panel hides.
 
