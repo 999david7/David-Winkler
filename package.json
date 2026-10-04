@@ -10,7 +10,7 @@
     "check": "node --check server.js && node --check js/main.js && node --check api/contact.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

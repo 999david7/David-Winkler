@@ -238,7 +238,7 @@ app.all("/api/*", (req, res) => {
  * files. Block it before express.static can hand it out.
  */
 const PRIVATE_PATHS =
-    /^\/(?:server\.js|data\/|node_modules\/|package(?:-lock)?\.json)/i;
+    /^\/(?:server\.js|data\/|node_modules\/|package(?:-lock)?\.json|vercel\.json|\.(?:env|idea|vscode|git))/i;
 
 app.use((req, res, next) => {
     if (PRIVATE_PATHS.test(req.path)) {

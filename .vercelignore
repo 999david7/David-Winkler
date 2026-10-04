@@ -1,0 +1,19 @@
+# Vercel serves the repository root as the static site, so anything left here
+# is publicly downloadable. The PRIVATE_PATHS guard in server.js only runs when
+# the Express server is the host, which it isn't on Vercel.
+#
+# package.json and package-lock.json are NOT listed: the build needs them to
+# install nodemailer for api/contact.js. They are masked from the public site by
+# the rewrites in vercel.json instead.
+
+server.js
+.env.example
+.gitignore
+README.md
+
+.idea/
+.vscode/
+
+node_modules/
+data/
+*.log

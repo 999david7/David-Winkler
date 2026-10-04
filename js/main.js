@@ -455,6 +455,32 @@
             }
         }
 
+        /**
+         * Static hosting with no API behind it, a host with no mailer
+         * configured, and an offline visitor all end the same way: there is
+         * nowhere for the message to go. Hand over a pre-filled email rather
+         * than leaving the visitor at a dead end.
+         */
+        function handOffToEmail(data, reason) {
+            setBusy(false);
+            setNote(
+                reason
+                    ? `${reason} Opening your email app…`
+                    : "Couldn't reach the server — opening your email app instead…",
+                "error",
+            );
+
+            const subject = encodeURIComponent(`Portfolio enquiry from ${data.name}`);
+            const body = encodeURIComponent(`${data.message}\n\n— ${data.name} (${data.email})`);
+            window.setTimeout(() => {
+                window.location.href = `mailto:${MAILTO}?subject=${subject}&body=${body}`;
+            }, 900);
+        }
+
+        // Statuses the visitor can act on without leaving the form. Anything
+        // else means the API is missing or can't deliver, so we hand off.
+        const RETRY_IN_PLACE = new Set([400, 422, 429]);
+
         // Validate a field once it has been touched, then live on every keystroke.
         FIELDS.forEach((name) => {
             const input = fld(name);
@@ -506,33 +532,33 @@
 
                 const payload = await res.json().catch(() => null);
 
-                if (!res.ok || !payload || payload.ok !== true) {
-                    const msg =
+                if (res.ok && payload && payload.ok === true) {
+                    form.reset();
+                    FIELDS.forEach((n) => fieldError(n, ""));
+                    setNote("Message sent — I'll get back to you soon.", "ok");
+                    setBusy(false);
+                    window.setTimeout(() => setNote("", ""), 6000);
+                    return;
+                }
+
+                if (RETRY_IN_PLACE.has(res.status)) {
+                    setNote(
                         (payload && payload.error) ||
-                        (res.status === 429
-                            ? "Too many messages just now — try again in a minute."
-                            : "Something went wrong on my end.");
-                    setNote(msg, "error");
+                            (res.status === 429
+                                ? "Too many messages just now — try again in a minute."
+                                : "Please check your details and try again."),
+                        "error",
+                    );
                     setBusy(false);
                     return;
                 }
 
-                form.reset();
-                FIELDS.forEach((n) => fieldError(n, ""));
-                setNote("Message sent — I'll get back to you soon.", "ok");
-                setBusy(false);
-                window.setTimeout(() => setNote("", ""), 6000);
+                // 404 from a static host, 503 from a host with no mailer, 5xx
+                // from a broken one — the message has nowhere to go either way.
+                handOffToEmail(data, payload && payload.error);
             } catch (err) {
-                // No API reachable (static hosting, offline, file://).
-                // Hand the visitor a pre-filled email instead of a dead end.
-                setBusy(false);
-                setNote("Couldn't reach the server — opening your email app instead…", "error");
-
-                const subject = encodeURIComponent(`Portfolio enquiry from ${data.name}`);
-                const body = encodeURIComponent(`${data.message}\n\n— ${data.name} (${data.email})`);
-                window.setTimeout(() => {
-                    window.location.href = `mailto:${MAILTO}?subject=${subject}&body=${body}`;
-                }, 900);
+                // Offline, blocked, or opened over file://.
+                handOffToEmail(data);
             }
         });
     })();

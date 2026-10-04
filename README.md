@@ -100,9 +100,11 @@ The form posts JSON to `api/contact` (a relative path, so it works from any
 subdirectory). `server.js` validates it, rate limits to 5 submissions per IP per
 10 minutes, checks a honeypot field, stores the message, and optionally emails it.
 
-If no API is reachable — static hosting, an offline visitor, or opening
-`index.html` straight off disk — the form falls back to opening a pre-filled
-`mailto:` compose window instead of failing.
+Only `400`, `422` and `429` are shown inline, because those are the ones the
+visitor can act on. Anything else — a `404` because the host has no API, a
+`503` because it has no mailer configured, a `5xx`, or no response at all —
+means the message has nowhere to go, so the form opens a pre-filled `mailto:`
+compose window rather than leaving the visitor at a dead end.
 
 ### Deploying statically
 
@@ -110,6 +112,29 @@ The site works as pure static files (GitHub Pages, Netlify, S3): every asset
 path is relative and nothing needs a server to render. Only the contact API
 needs Node. On a serverless host, `api/contact.js` provides the same endpoint —
 set the SMTP variables there, since there's no filesystem to store messages in.
+
+Until those variables are set the endpoint returns `503`, and the form falls
+back to `mailto:`. That is the expected state of a fresh deployment, not a
+failure.
+
+### Deploying to Vercel
+
+Import the repository and deploy — no framework preset, no build command, no
+output directory. `vercel.json` and `.vercelignore` configure the rest:
+
+- `api/contact.js` is picked up automatically as a function at `/api/contact`.
+- `cleanUrls` serves `/projects`, matching the Express server's behaviour.
+- The four security headers `server.js` sends are set as static headers, since
+  `server.js` itself never runs on Vercel.
+- Everything server-side is kept out of the deployment. Vercel serves the
+  repository root, so without this `server.js` would be publicly downloadable —
+  the `PRIVATE_PATHS` guard only applies when Express is the host.
+
+`engines.node` is pinned to `22.x`; Vercel rejects open-ended ranges like
+`>=18`.
+
+For a working contact form, set `CONTACT_EMAIL`, `SMTP_HOST`, `SMTP_USER` and
+`SMTP_PASS` in the project's environment variables, then redeploy.
 
 ## Endpoints
 
