@@ -162,6 +162,9 @@ a.row:hover { opacity: .55; }
 .row-note { margin-top: .5rem; font-family: var(--ff-serif); font-size: 1.05rem; color: var(--muted); }
 .row-year { font-family: var(--ff-serif); font-size: 1rem; color: var(--faint); white-space: nowrap; flex-shrink: 0; }
 .path .row-name { font-family: var(--ff-serif); text-transform: none; font-weight: 500; font-size: clamp(1.2rem, 2.2vw, 1.6rem); letter-spacing: 0; }
+/* Stack: category on the left, technologies in a fixed column beside it. */
+.stack-row { display: grid; grid-template-columns: minmax(8rem, 16rem) 1fr; align-items: baseline; }
+.stack-items { font-family: var(--ff-serif); font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--muted); }
 
 /* -------------------------------------------------------------- footer */
 
@@ -214,6 +217,7 @@ a.row:hover { opacity: .55; }
 }
 
 @media (max-width: 640px) {
+    .stack-row { grid-template-columns: 1fr; }
     .footer { flex-direction: column; align-items: flex-start; }
     .footer-copy { align-self: flex-start; }
     .row { flex-direction: column; gap: .4rem; }
