@@ -51,6 +51,10 @@ underline from the left.
 On wide screens hovering a work name shows that project's image (or its name
 as a faint glyph) in the sticky preview panel; under 820px the panel hides.
 
+The Stack section's logos live in one sprite, `imgs/icons/stack.svg`, taken
+from [Simple Icons](https://simpleicons.org) (CC0). Each item references a
+symbol by id and sets its brand colour with `--brand`.
+
 Project pages are plain static HTML. To add a project, add a row to
 `projects.html`, a name and preview shot to the work section of `index.html`,
 and a page under `projects/` (copy an existing one and update the prev/next
