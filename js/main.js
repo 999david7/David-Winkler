@@ -4,6 +4,7 @@
    1. Nav links to sections on the current page scroll there smoothly.
    2. Hovering or focusing a work name shows its picture in the preview panel.
    3. Elements marked [data-reveal] fade up as they scroll into view.
+   4. The nav gathers into a frosted pill once the page scrolls.
    ========================================================================== */
 
 "use strict";
@@ -27,6 +28,15 @@
         target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth" });
         history.replaceState(null, "", url.hash);
     });
+
+    /* ------------------------------------------------------------ nav pill */
+
+    const nav = document.querySelector(".nav");
+    if (nav) {
+        const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+    }
 
     /* ---------------------------------------------------------- work preview */
 

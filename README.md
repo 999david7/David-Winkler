@@ -44,7 +44,8 @@ The palette is two colours, `#FCFBF8` paper and `#17140F` ink, with muted,
 faint and line tones as the ink at 56/34/12% alpha. Type is League Gothic for
 display caps, Cormorant Garamond for body text and Shadows Into Light for the
 handwritten accents, all from Google Fonts. The nav uses
-`mix-blend-mode: difference`; the hero elements rise 14px and fade in over
+`mix-blend-mode: difference` at the top and turns into a frosted pill once
+the page scrolls; the hero elements rise 14px and fade in over
 1.1s, staggered 0.14s. Work names darken and slide on hover, and links
 underline from the left.
 
