@@ -1,8 +1,8 @@
 /* ==========================================================================
    PORTFOLIO — STYLES
-   Mirrors the 999gabriel.me design system value for value. The reference's
-   licensed Balboa / Shadow Light files are swapped for the fallbacks it
-   names itself (Oswald) and the closest free script (Shadows Into Light).
+   Paper-and-ink editorial layout: condensed display caps, a garamond body
+   and a handwritten accent. Fonts are League Gothic, Cormorant Garamond and
+   Shadows Into Light from Google Fonts.
    ========================================================================== */
 
 :root {
@@ -88,7 +88,7 @@ ul { list-style: none; }
 .hero-name {
     font-family: var(--ff-bold); text-transform: uppercase; font-weight: 700;
     font-size: clamp(2.8rem, 9vw, 8rem); line-height: .9;
-    /* Wider than the reference's .02em: League Gothic is narrower than Balboa Fill. */
+    /* Extra tracking: League Gothic is very narrow at this size. */
     letter-spacing: .09em;
 }
 .hero-caption { font-family: var(--ff-script); font-size: clamp(1.35rem, 2.6vw, 2.3rem); line-height: 1.35; color: var(--ink); }

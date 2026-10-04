@@ -40,17 +40,13 @@ imgs/               Portrait, project images, logos
 
 ## Front end
 
-The design replicates [999gabriel.me](https://999gabriel.me) value for value:
-the same tokens (`#FCFBF8` paper, `#17140F` ink, muted/faint/line at 56/34/12%
-alpha), type scale, spacing, layout, the `mix-blend-mode: difference` nav, and
-the hero entrance (each element rises 14px and fades in over 1.1s, staggered
-0.14s). Like the reference there are no scroll animations; work names darken
-and slide on hover, and links underline from the left.
-
-The reference's licensed fonts are replaced with free Google Fonts: League
-Gothic for Balboa (display), Shadows Into Light for Shadow Light (script), and
-the same Cormorant Garamond serif. League Gothic is narrower than Balboa Fill,
-so the hero name gets extra letter spacing to keep the same width.
+The palette is two colours, `#FCFBF8` paper and `#17140F` ink, with muted,
+faint and line tones as the ink at 56/34/12% alpha. Type is League Gothic for
+display caps, Cormorant Garamond for body text and Shadows Into Light for the
+handwritten accents, all from Google Fonts. The nav uses
+`mix-blend-mode: difference`; the hero elements rise 14px and fade in over
+1.1s, staggered 0.14s. Work names darken and slide on hover, and links
+underline from the left.
 
 On wide screens hovering a work name shows that project's image (or its name
 as a faint glyph) in the sticky preview panel; under 820px the panel hides.
@@ -62,7 +58,7 @@ links).
 
 ## Contact API
 
-The site itself links to email (like the reference, there is no form on the
+The site itself links to email (there is no form on the
 page), but the API is kept for reuse. A form would post JSON to `api/contact` (a relative path, so it works from any
 subdirectory). `server.js` validates it, rate limits to 5 submissions per IP per
 10 minutes, checks a honeypot field, stores the message, and optionally emails it.

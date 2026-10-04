@@ -26,7 +26,11 @@
       ]
     },
     {
-      "source": "/(.*)\\.(css|js|svg|png|jpg|jpeg|webp|avif|woff2|ico|pdf)",
+      "source": "/(.*)\\.(css|js)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "source": "/(.*)\\.(svg|png|jpg|jpeg|webp|avif|woff2|ico|pdf)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
   ]
