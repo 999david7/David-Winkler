@@ -173,12 +173,18 @@ a.row:hover { opacity: .55; }
     text-transform: uppercase; color: var(--faint); margin-bottom: 1.1rem;
 }
 .stack-list { display: grid; gap: .85rem; }
-.stack-item { display: flex; align-items: center; gap: .8rem; font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.2; }
+.stack-item { font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.2; }
+.stack-link { display: inline-flex; align-items: center; gap: .8rem; }
+.stack-name {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size .4s var(--ease);
+}
+.stack-link:hover .stack-name, .stack-link:focus-visible .stack-name { background-size: 100% 1px; }
 .stack-icon {
     width: 1.35rem; height: 1.35rem; flex-shrink: 0; fill: var(--brand, var(--ink));
     transition: transform .3s var(--ease);
 }
-.stack-item:hover .stack-icon { transform: translateY(-2px) scale(1.08); }
+.stack-link:hover .stack-icon, .stack-link:focus-visible .stack-icon { transform: translateY(-2px) scale(1.08); }
 
 /* -------------------------------------------------------------- footer */
 
