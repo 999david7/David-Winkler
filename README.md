@@ -61,7 +61,9 @@ as a faint glyph) in the sticky preview panel; under 820px the panel hides.
 
 The Stack section's logos live in one sprite, `imgs/icons/stack.svg`, taken
 from [Simple Icons](https://simpleicons.org) (CC0). Each item references a
-symbol by id and sets its brand colour with `--brand`.
+symbol by id and sets its brand colour with `--brand`. Each category is a
+ruled row like Education and Path; logos rest in muted ink and take their
+brand colour on hover.
 
 Project pages are plain static HTML. To add a project, add a row to
 `projects.html`, a name and preview shot to the work section of `index.html`,
