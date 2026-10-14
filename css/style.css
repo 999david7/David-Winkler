@@ -145,8 +145,8 @@ a.slabel:hover { color: var(--ink); }
 .reveals-init [data-reveal] { transition: none !important; }
 
 /* Row hairlines sweep in from the left as their row arrives. */
-.reveals .row[data-reveal], .reveals .work-name[data-reveal] { background-size: 0 1px; }
-.reveals .row[data-reveal].in, .reveals .work-name[data-reveal].in { background-size: 100% 1px; }
+.reveals .row[data-reveal], .reveals .work-name[data-reveal], .reveals .stack-group[data-reveal] { background-size: 0 1px; }
+.reveals .row[data-reveal].in, .reveals .work-name[data-reveal].in, .reveals .stack-group[data-reveal].in { background-size: 100% 1px; }
 
 /* The signature writes itself in from left to right. */
 .reveals .footer-sign[data-reveal] {
@@ -221,32 +221,31 @@ a.row:hover { opacity: .55; }
 .row-note { margin-top: .5rem; font-family: var(--ff-serif); font-size: 1.05rem; color: var(--muted); }
 .row-year { font-family: var(--ff-serif); font-size: 1rem; color: var(--faint); white-space: nowrap; flex-shrink: 0; }
 .path .row-name { font-family: var(--ff-serif); text-transform: none; font-weight: 500; font-size: clamp(1.2rem, 2.2vw, 1.6rem); letter-spacing: 0; }
-/* Stack: one column per category, each a list of logo + name. Logos sit
-   in brand colour (dark brands use the ink) and lift slightly on hover. */
-.stack {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem);
-    padding-top: clamp(1.75rem, 3.5vh, 2.5rem); border-top: 1px solid var(--line);
+/* Stack: one ruled row per category, like the rows above. The label sits
+   on the left; its tools fill a shared grid on the right so names line up
+   from row to row. Logos rest in muted ink and take their brand colour
+   (dark brands keep the ink) on hover. */
+.stack-group {
+    display: grid; grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr); gap: 1.1rem 2rem; align-items: baseline;
+    padding: clamp(1.4rem, 3vh, 2.1rem) 0;
+    /* Top hairline as a background so it can draw in on reveal. */
+    background: linear-gradient(var(--line), var(--line)) 0 0 / 100% 1px no-repeat;
 }
+.stack-group:last-child { border-bottom: 1px solid var(--line); }
 .stack-label {
-    font-family: var(--ff-serif); font-weight: 400; font-size: .85rem; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--faint); margin-bottom: 1.1rem;
+    display: flex; align-items: baseline; gap: .9rem;
+    font-family: var(--ff-serif); font-weight: 500; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.2;
 }
-.stack-list { display: grid; gap: .7rem; }
-.stack-item { font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.2; }
-.stack-link { display: inline-flex; align-items: center; gap: .8rem; }
-.stack-name {
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    transition: background-size .4s var(--ease);
-}
-.stack-link:hover .stack-name, .stack-link:focus-visible .stack-name { background-size: 100% 1px; }
+.stack-num { font-size: .85rem; font-weight: 400; letter-spacing: .08em; color: var(--faint); font-variant-numeric: lining-nums tabular-nums; }
+.stack-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: .95rem 1.5rem; }
+.stack-item { font-size: clamp(1.05rem, 1.3vw, 1.2rem); line-height: 1.2; }
+.stack-link { display: inline-flex; align-items: center; gap: .7rem; color: var(--muted); transition: color .3s var(--ease); }
+.stack-link:hover, .stack-link:focus-visible { color: var(--ink); }
 .stack-icon {
-    box-sizing: border-box; width: 2.2rem; height: 2.2rem; padding: .45rem; flex-shrink: 0;
-    fill: var(--brand, var(--ink)); background: #fff; border: 1px solid var(--line); border-radius: 10px;
-    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    width: 1.15rem; height: 1.15rem; flex-shrink: 0; fill: currentColor;
+    transition: fill .3s var(--ease), transform .3s var(--ease);
 }
-.stack-link:hover .stack-icon, .stack-link:focus-visible .stack-icon {
-    transform: translateY(-2px); box-shadow: 0 8px 16px -8px rgba(23, 20, 15, .3);
-}
+.stack-link:hover .stack-icon, .stack-link:focus-visible .stack-icon { fill: var(--brand, var(--ink)); transform: translateY(-1px); }
 
 /* -------------------------------------------------------------- footer */
 
@@ -293,7 +292,6 @@ a.row:hover { opacity: .55; }
 /* ------------------------------------------------------------ responsive */
 
 @media (max-width: 820px) {
-    .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.5rem; }
     .work-grid { grid-template-columns: 1fr; gap: 0; }
     .work-preview { display: none; }
     .work-name-txt { color: var(--ink); }
@@ -304,6 +302,8 @@ a.row:hover { opacity: .55; }
     .footer-copy { align-self: flex-start; }
     .row { flex-direction: column; gap: .4rem; }
     .row-year { order: -1; }
+    .stack-group { grid-template-columns: 1fr; }
+    .stack-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
