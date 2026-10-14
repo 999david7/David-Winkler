@@ -1,19 +1,9 @@
-/* ==========================================================================
-   PORTFOLIO — INTERACTION
-   Small behaviours, no dependencies:
-   1. Nav links to sections on the current page scroll there smoothly.
-   2. Hovering or focusing a work name shows its picture in the preview panel.
-   3. Elements marked [data-reveal] fade up as they scroll into view.
-   4. The nav gathers into a frosted pill once the page scrolls.
-   ========================================================================== */
-
 "use strict";
 
 (function () {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    /* ------------------------------------------------------- smooth anchors */
-
+    // Smooth-scroll links to sections on the current page.
     document.addEventListener("click", (e) => {
         const link = e.target.closest("a[href*='#']");
         if (!link) return;
@@ -29,84 +19,84 @@
         history.replaceState(null, "", url.hash);
     });
 
-    /* ------------------------------------------------------------ nav pill */
-
+    // Turn the nav into a frosted pill once the page has scrolled.
     const nav = document.querySelector(".nav");
     if (nav) {
-        const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
+        const updateNav = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+        window.addEventListener("scroll", updateNav, { passive: true });
+        updateNav();
     }
 
-    /* ---------------------------------------------------------- work preview */
+    // Hovering or focusing a work name shows its picture in the preview panel.
+    const workNames = document.querySelectorAll(".work-name");
+    const workShots = document.querySelectorAll(".work-shot");
 
-    const names = Array.from(document.querySelectorAll(".work-name"));
-    const shots = Array.from(document.querySelectorAll(".work-shot"));
-
-    names.forEach((name, i) => {
-        const show = () => shots.forEach((shot, j) => shot.classList.toggle("on", i === j));
+    workNames.forEach((name, i) => {
+        const show = () => workShots.forEach((shot, j) => shot.classList.toggle("on", i === j));
         name.addEventListener("mouseenter", show);
         name.addEventListener("focus", show);
     });
 
-    /* ---------------------------------------------------------- scroll reveals */
+    // Fade [data-reveal] elements up as they scroll into view.
+    const revealables = Array.from(document.querySelectorAll("[data-reveal]"));
 
-    const pending = Array.from(document.querySelectorAll("[data-reveal]"));
-
-    // Arrival is final: drop the attribute so the element's own hover
-    // transitions take over again at their normal speed.
-    const settle = (el) => {
+    // Once revealed, drop the attribute so hover transitions run at normal speed.
+    const finishReveal = (el) => {
         el.removeAttribute("data-reveal");
         el.classList.remove("in");
         el.style.removeProperty("--i");
     };
 
-    if (pending.length && !reduceMotion.matches && "IntersectionObserver" in window) {
-        // Stagger siblings that arrive together: each element's position
-        // among its revealable siblings sets its delay.
-        // A lone element inside a list item (each work name) staggers by
-        // the item's position instead.
-        pending.forEach((el) => {
-            const parent = el.parentElement;
-            const siblings = Array.from(parent.children).filter((c) => c.hasAttribute("data-reveal"));
-            let i = siblings.indexOf(el);
-            if (siblings.length === 1 && parent.tagName === "LI") i = Array.from(parent.parentElement.children).indexOf(parent);
-            el.style.setProperty("--i", String(Math.min(i, 8)));
+    if (!revealables.length || reduceMotion.matches || !("IntersectionObserver" in window)) {
+        revealables.forEach(finishReveal);
+        return;
+    }
+
+    revealables.forEach((el) => el.style.setProperty("--i", String(Math.min(staggerIndex(el), 8))));
+
+    // Hide everything without a transition first, so elements already on
+    // screen don't fade out before fading in.
+    const root = document.documentElement;
+    root.classList.add("reveals", "reveals-init");
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("reveals-init")));
+
+    const reveal = (el) => {
+        observer.unobserve(el);
+        el.classList.add("in");
+        window.setTimeout(() => finishReveal(el), 2400);
+    };
+
+    const observer = new IntersectionObserver(
+        (entries) => entries.forEach((entry) => entry.isIntersecting && reveal(entry.target)),
+        { rootMargin: "0px 0px -8% 0px" }
+    );
+    revealables.forEach((el) => observer.observe(el));
+
+    // A fast scroll or anchor jump can skip past an element between observer
+    // callbacks, so also reveal anything that has ended up above the fold.
+    let sweepQueued = false;
+    const revealPassed = () => {
+        sweepQueued = false;
+        revealables.forEach((el) => {
+            const waiting = el.hasAttribute("data-reveal") && !el.classList.contains("in");
+            if (waiting && el.getBoundingClientRect().top < window.innerHeight) reveal(el);
         });
+    };
+    window.addEventListener("scroll", () => {
+        if (sweepQueued) return;
+        sweepQueued = true;
+        requestAnimationFrame(revealPassed);
+    }, { passive: true });
 
-        // Hide without animating, then let transitions run from the next
-        // frame, so anything on screen doesn't fade out before fading in.
-        const root = document.documentElement;
-        root.classList.add("reveals", "reveals-init");
-        requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("reveals-init")));
+    // Siblings that arrive together are staggered by their position. An element
+    // alone in a list item (like each work name) uses the item's position.
+    function staggerIndex(el) {
+        const parent = el.parentElement;
+        const siblings = Array.from(parent.children).filter((c) => c.hasAttribute("data-reveal"));
 
-        const show = (el) => {
-            observer.unobserve(el);
-            el.classList.add("in");
-            window.setTimeout(() => settle(el), 2400);
-        };
-
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((entry) => entry.isIntersecting && show(entry.target)),
-            { rootMargin: "0px 0px -8% 0px" }
-        );
-        pending.forEach((el) => observer.observe(el));
-
-        // A fast scroll or an anchor jump can carry an element past the
-        // viewport between observer samples; reveal anything already above
-        // the fold so nothing is left hidden.
-        let queued = false;
-        const sweep = () => {
-            queued = false;
-            pending.forEach((el) => {
-                if (el.hasAttribute("data-reveal") && !el.classList.contains("in") &&
-                    el.getBoundingClientRect().top < window.innerHeight) show(el);
-            });
-        };
-        window.addEventListener("scroll", () => {
-            if (!queued) { queued = true; requestAnimationFrame(sweep); }
-        }, { passive: true });
-    } else {
-        pending.forEach(settle);
+        if (siblings.length === 1 && parent.tagName === "LI") {
+            return Array.from(parent.parentElement.children).indexOf(parent);
+        }
+        return siblings.indexOf(el);
     }
 })();
